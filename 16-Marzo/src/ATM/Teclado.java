@@ -9,7 +9,7 @@ public class Teclado {
 		sc = new Scanner(System.in);
 	}
 	
-	public int getEntero() {
+	public int getEntrada() {
 		return sc.nextInt();
 	}
 }
