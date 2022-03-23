@@ -11,7 +11,7 @@ public class Principal {
 		Area2 a2 = new Area2(4);
 		System.out.println("Radio A2 = " + a2.getRadio());
 		
-		Area3 a3 = new Area3(4);d
+		Area3 a3 = new Area3(4);
 		System.out.println("Radio A3 = " + a3.getRadio());
 
 	}
