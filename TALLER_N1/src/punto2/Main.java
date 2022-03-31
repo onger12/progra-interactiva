@@ -62,7 +62,7 @@ public class Main {
 			jefe3.reCalcularSalarios();
 			
 			annios--;
-			annio += annios;
+			annio += 1;
 		}
 	}
 }
