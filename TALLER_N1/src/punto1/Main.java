@@ -1,7 +1,5 @@
 package punto1;
 
-import javax.swing.JOptionPane;
-
 public class Main {
 	public static void main(String[] args) {
 		Interfaz interfaz = new Interfaz();
