@@ -61,4 +61,11 @@ public class Cartas {
 				joker.getHeight(), Image.SCALE_SMOOTH));
 		joker.setIcon(img);
 	}
+	
+	public JLabel pickCard() {
+		int col = (int)(Math.random() * 14);
+		int fil = (int)(Math.random() * 4);
+		
+		return imagenes[col][fil];
+	}
 }

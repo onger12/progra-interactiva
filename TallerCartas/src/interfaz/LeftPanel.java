@@ -22,6 +22,9 @@ public class LeftPanel extends JPanel{
 	public static boolean token5 = true;
 	public static boolean token6 = true;
 	
+	public static int valorEfectivo;
+	public static int valorApuesta;
+	
 	private final int PADDING_RIGHT_BUTTONS = 7;
 	private final int PADDING_BOTTOM_BUTTONS = 7;
 
@@ -40,6 +43,17 @@ public class LeftPanel extends JPanel{
 	public static JButton botonApuesta4;
 	public static JButton botonApuesta5;
 	public static JButton botonApuesta6;
+	
+	private static final ArrayList<Integer> tokenValues = new ArrayList<Integer>() {
+		{
+			add(1);
+			add(5);
+			add(10);
+			add(25);
+			add(50);
+			add(100);
+		}
+	};
 	public static final ArrayList<JButton> botones = new ArrayList<JButton>(){
 		{
 			add(botonApuesta1 = new JButton());
@@ -59,84 +73,14 @@ public class LeftPanel extends JPanel{
 		setImagesToButtons();
 		setTopComponents();
 		
+		valorEfectivo = Integer.parseInt(campoEfectivo.getText());
+		valorApuesta = Integer.parseInt(campoApuesta.getText());
+		
 		ActionListener oyente = new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource().equals(botonApuesta1)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 1) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 1;
-						campoApuesta.setText(String.valueOf(apuesta));
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 1;
-						campoEfectivo.setText(String.valueOf(efectivo));
-					}else {
-						token1 = false;
-					}
-				}
-				if(e.getSource().equals(botonApuesta2)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 5) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 5;
-						campoApuesta.setText(String.valueOf(apuesta));
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 5;
-						campoEfectivo.setText(String.valueOf(efectivo));
-					}else {
-						token2 = false;
-					}
-				}
-				if(e.getSource().equals(botonApuesta3)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 10) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 10;
-						campoApuesta.setText(String.valueOf(apuesta));
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 10;
-						campoEfectivo.setText(String.valueOf(efectivo));
-					}else {
-						token3 = false;
-					}
-				}
-				if(e.getSource().equals(botonApuesta4)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 25) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 25;
-						campoApuesta.setText(String.valueOf(apuesta));
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 25;
-						campoEfectivo.setText(String.valueOf(efectivo));
-					}else {
-						token4 = false;
-					}
-				}
-				if(e.getSource().equals(botonApuesta5)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 50) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 50;
-						campoApuesta.setText(String.valueOf(apuesta));		
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 50;
-						campoEfectivo.setText(String.valueOf(efectivo));				
-					}else {
-						token5 = false;
-					}
-				}
-				if(e.getSource().equals(botonApuesta6)) {
-					if(Integer.parseInt(campoEfectivo.getText()) >= 100) {
-						int apuesta = Integer.parseInt(campoApuesta.getText());
-						apuesta += 100;
-						campoApuesta.setText(String.valueOf(apuesta));
-						int efectivo = Integer.parseInt(campoEfectivo.getText());
-						efectivo -= 100;
-						campoEfectivo.setText(String.valueOf(efectivo));
-					}else {
-						token6 = false;
-						System.out.println("!");
-					}
-				}
-				
+				comprobarClicks(e);
 			}
 		};
 		botonApuesta1.addActionListener(oyente);
@@ -145,6 +89,35 @@ public class LeftPanel extends JPanel{
 		botonApuesta4.addActionListener(oyente);
 		botonApuesta5.addActionListener(oyente);
 		botonApuesta6.addActionListener(oyente);
+	}
+	
+	private void comprobarClicks(ActionEvent e) {
+		for(int i = 0; i < 6; i++) {
+			if(e.getSource().equals(botones.get(i))) {
+				if(Integer.parseInt(campoEfectivo.getText()) >= tokenValues.get(i)) {
+					valorApuesta = Integer.parseInt(campoApuesta.getText());
+					valorApuesta += tokenValues.get(i);
+					campoApuesta.setText(String.valueOf(valorApuesta));
+					valorEfectivo = Integer.parseInt(campoEfectivo.getText());
+					valorEfectivo -= tokenValues.get(i);
+					campoEfectivo.setText(String.valueOf(valorEfectivo));
+				}
+			}
+		}
+		System.out.println(valorEfectivo);
+		System.out.println(valorApuesta);
+	}
+	
+	public static void comprobarBotones() {
+		for(int i = 0; i < 6; i++) {
+			if(valorEfectivo < tokenValues.get(i)) {
+				System.out.println("false");
+				botones.get(i).setEnabled(false);
+			}else {
+				System.out.println("true");
+				botones.get(i).setEnabled(true);
+			}
+		}
 	}
 	
 	private void setImagesToButtons() {

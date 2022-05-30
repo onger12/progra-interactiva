@@ -6,6 +6,9 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import hilos.HiloJuego;
+import hilos.HiloTokens;
+
 public class Ventana extends JFrame{
 	LeftPanel leftPanel;
 	MainPanel mainPanel;
@@ -30,6 +33,12 @@ public class Ventana extends JFrame{
 		mainPanel = new MainPanel(200, 0, 600, this.getHeight());
 		mainPanel.setBackground(Color.pink);
 		this.add(mainPanel);
+		
+		HiloTokens hiloTokens = new HiloTokens();
+		hiloTokens.start();
+		
+		HiloJuego hiloJuego = new HiloJuego();
+		hiloJuego.start();
 	}
 	
 	private void setLeftPanel() {
